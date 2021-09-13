@@ -1,0 +1,37 @@
+public class Solution {
+    int m =1000000007;
+    public int solve(int A) {
+        long[][] f={{1,1},{1,0}}; 
+        if(A<=1)
+        return A;
+        else
+        return (int)(power(f,A-1)[0][0]%m);
+
+    }
+
+   public long[][] power(long[][] f,int A){
+       if(A==1)
+       return f;
+       
+       long[][] res= power(f,A/2);
+
+       if((A%2) == 0)
+       return matMulti(res,res);
+       else{
+           return matMulti(f,(matMulti(res,res)));
+       }
+   }
+
+    public long[][] matMulti(long[][] A, long[][] B){
+        long [][] result = new long[A.length][B[0].length];
+         
+         for(int i =0;i<result.length;i++){
+             for(int j = 0;j<result[0].length;j++){
+                 for(int k =0;k<A[0].length;k++){
+                     result[i][j]=(result[i][j]+A[i][k] * B[k][j])%m;
+                 }
+             }
+         }
+                  return result;
+    }
+}
